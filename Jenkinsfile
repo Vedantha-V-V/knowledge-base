@@ -30,7 +30,7 @@ pipeline {
                     docker rm -f synced-brain-container || true
                     docker rm -f synced-brain-frontend || true
 
-                    docker run -d -p 8000:8000 \
+                    docker run -d \
                         --network host \
                         --name synced-brain-container \
                         synced-brain-backend
