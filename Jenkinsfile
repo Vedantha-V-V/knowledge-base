@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('* * * * *')
+    }
     environment {
         DOCKER_BUILDKIT = '1'
     }
