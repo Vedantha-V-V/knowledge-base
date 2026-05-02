@@ -1,14 +1,18 @@
 version: "3.8"
 
-# ─── Synced Brain — Local Dev Stack ───────────────────────────────────────────
-# Brings up: Milvus standalone (vector DB) + its dependencies + Attu (Milvus UI)
-#
-# Usage:
-#   docker compose up -d
-#   docker compose down        # stop (keeps data)
-#   docker compose down -v     # stop + wipe volumes
-
 services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    network_mode: host
 
   # ── etcd — Milvus metadata store ──────────────────────────────────────────
   etcd:
@@ -85,7 +89,7 @@ services:
     environment:
       MILVUS_URL: milvus:19530
     ports:
-      - "8080:3000"     # Open http://localhost:8080 to browse Milvus
+      - "8081:3000"     # Open http://localhost:8080 to browse Milvus
     depends_on:
       - milvus
 
